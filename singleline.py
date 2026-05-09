@@ -203,9 +203,9 @@ def generate(tools: list[Tool], lang: str, source_file: str) -> str:
 # ---------------------------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser(
-        description="Compile a tools.txt spec into MCP tool code."
+        description="Compile a single-line spec into an MCP"
     )
-    parser.add_argument("--mcp", required=True, help="Path to tools.txt spec file")
+    parser.add_argument("-s", "--sl", required=True, help="Path to the single-line spec file")
     parser.add_argument(
         "--lang",
         required=True,
@@ -217,16 +217,16 @@ def main():
     )
     args = parser.parse_args()
 
-    if not os.path.isfile(args.mcp):
-        print(f"Error: file not found: {args.mcp}", file=sys.stderr)
+    if not os.path.isfile(args.sl):
+        print(f"Error: file not found: {args.sl}", file=sys.stderr)
         sys.exit(1)
 
-    tools = parse_tools_file(args.mcp)
+    tools = parse_tools_file(args.sl)
     if not tools:
         print("Warning: no tools found in spec file", file=sys.stderr)
         sys.exit(0)
 
-    output = generate(tools, args.lang, os.path.basename(args.mcp))
+    output = generate(tools, args.lang, os.path.basename(args.sl))
 
     if args.output:
         with open(args.output, "w") as f:
