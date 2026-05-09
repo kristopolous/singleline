@@ -1,0 +1,16 @@
+[project]
+name = "singleline"
+version = "0.1.0"
+description = "Compile a tools.txt spec into MCP tool definitions"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "jinja2>=3.1.0",
+]
+
+[project.scripts]
+singleline = "singleline:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
